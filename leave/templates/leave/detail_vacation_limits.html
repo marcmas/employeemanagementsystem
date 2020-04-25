@@ -1,0 +1,70 @@
+{% extends "ems/base.html" %}
+{% block title %}
+    Vacation Info
+{% endblock title %}
+{% block content %}
+<style>
+.limits{
+    display: block;
+    width:300px;
+    padding-right: 50px;
+    float: left;
+}
+.limit_info{
+    font-weight: 900;
+    font-size: 16px;
+}
+</style>
+<div class="row">
+    <div class="col-lg-7">
+        <!-- Circle Buttons -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="m-0 font-weight-bold text-primary">Vacation limits for {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+            </div>
+            <div class="card-body">
+                <h6 class="limits">Available days in {% now 'Y' %}: </h6>
+                <div>
+                    <span class="limit_info">{{ vacation_limits.normal_days_constant }} days ({{hour_normal_days}} godz.) (in this {{ vacation_limits.request_days }} request days)</span>
+                </div>
+                <hr>
+                <h6 class="limits">Normal Days: </h6>
+                <div>
+                    <span class="limit_info">{{ vacation_limits.normal_days }} days </span> out of ({{ vacation_limits.normal_days_constant }})
+                </div>
+                <hr>
+                <h6 class="limits">Children Days: </h6>
+                <div>
+                    <span class="limit_info">{{ vacation_limits.children_days }} days </span> out of ({{ vacation_limits.children_days_constant }})
+                </div>
+                <hr>
+                <h6 class="limits">Request Days: </h6>
+                <div>
+                    <span class="limit_info">{{ vacation_limits.request_days }} days </span> out of ({{ vacation_limits.request_days_constant }})
+                </div>
+                
+                <hr>
+                This inforamtion doesn't contain <code>pending leaves</code>
+            </div>
+        </div>
+    
+    </div>
+    <!-- Donut Chart -->
+    <div class="col-xl-5 col-lg-5">
+        <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3">
+            <h2 class="m-0 font-weight-bold text-primary">Chart with Limits</h2>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="chart-pie pt-4">
+            <canvas id="myPieChart"></canvas>
+            </div>
+            <hr>
+            This inforamtion doesn't contain <code>pending leaves</code>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

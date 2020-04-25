@@ -1,0 +1,49 @@
+{% extends "ems/base.html" %}
+
+{% block content %}
+
+<style>
+    .main_info{
+        display: block;
+        width: 270px;
+        padding-right: 50px;
+        float: left;
+        font-size: 12px;
+    }
+    .base_info{
+        font-weight: 500;
+        font-size: 13px;
+    }
+</style>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Dropdown Card Example -->
+        <div class="card shadow mb-2">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Log Info</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <span class="main_info">Date create account: </span>
+                    <div>
+                        {% if not user.date_joined %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.date_joined }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Last Login: </span>
+                    <div>
+                        {% if not user.last_login %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.last_login }}</span>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,205 @@
+{% extends "ems/base.html" %}
+
+{% block title %}
+    Employee limits leave
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .main_info{
+        display: block;
+        width: 270px;
+        padding-right: 50px;
+        float: left;
+    }
+    .info{
+        font-weight: 700;
+        font-size: 16px;
+}
+</style>
+
+{% include "ems/messages.html" %}
+
+<div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" >
+        <div class="card shadow">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">Employee Info</h5>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <h6 class="main_info">First Name: </h6>
+                    <div>
+                        {% if not vacation_limits.employee.first_name %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.employee.first_name}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Last name: </h6>
+                    <div>
+                        {% if not vacation_limits.employee.last_name %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.employee.last_name}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Email: </h6>
+                    <div>
+                        {% if not vacation_limits.employee.email %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.employee.email }}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Phone Number: </h6>
+                    <div>
+                        {% if not vacation_limits.employee.userprofile.phone_number %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.employee.userprofile.phone_number}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Position: </h6>
+                    <div>
+                        {% if not vacation_limits.employee.userprofile.possition %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.employee.userprofile.possition}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Section: </h6>
+                    <div>
+                        {% if not vacation_limits.employee.userprofile.section %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.employee.userprofile.section}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" >
+
+        <div class="card shadow">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">Employee Limits Info</h5>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <h6 class="main_info">Normal Days: </h6>
+                    <div>
+                        {% if not vacation_limits.normal_days %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.normal_days}} days</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Request days: </h6>
+                    <div>
+                        {% if not vacation_limits.request_days %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.request_days}} days</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Children days: </h6>
+                    <div>
+                        {% if not vacation_limits.children_days %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.children_days}} days</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Normal Days (Constant): </h6>
+                    <div>
+                        {% if not vacation_limits.normal_days_constant %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.normal_days_constant}} days</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Request days (Constant): </h6>
+                    <div>
+                        {% if not vacation_limits.request_days_constant %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.request_days_constant}} days</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Children days (Constant): </h6>
+                    <div>
+                        {% if not vacation_limits.children_days_constant %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{vacation_limits.children_days_constant}} days</span>
+                        {% endif %}
+                    </div>
+                <hr>
+            </div>
+        </div>
+    </div>    
+</div>
+<div class="row mt-3">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" >
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">All Leaves for {{vacation_limits.employee.first_name}} {{vacation_limits.employee.last_name}}</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Type leave</th>
+                        <th>Leave Date</th>
+                        <th>Return Date</th>
+                        <th>Comment</th>
+                        <th>Days</th>
+                        <th>Status</th>
+                        <th>Enter</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for leave in leaves %}
+                    <tr>
+                        <td>{{leave.leave_type}}</td>
+                        <td>{{leave.leave_date}}</td>
+                        <td>{{leave.return_date}}</td>
+                        <td>{{leave.comment}}</td>
+                        <td>{{leave.days}}</td>
+                        <td>{{leave.status}}</td>
+                        <td><a class="btn btn-primary" href="{{ leave.get_detail_url }}" style="margin:auto; display:block;">View Details</a></td>
+                    </tr>
+                    {% endfor %}            
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<hr>
+<a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary btn-lg mb-4">
+    <span style="color:white;" class="text">Back</span>
+</a>
+
+{% endblock content %}

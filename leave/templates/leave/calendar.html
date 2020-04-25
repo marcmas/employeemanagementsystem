@@ -1,0 +1,68 @@
+{% extends "ems/base.html" %}
+
+{% block title %}
+    Add leave
+{% endblock title %}
+
+{% block content %}
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      
+      plugins: [ 'interaction', 'dayGrid' ],
+      defaultDate: today,
+      height: 600,
+      editable: false,
+      eventLimit: false, // allow "more" link when too many events
+      firstDay: 1,
+      eventSources: [
+
+        // Pending
+        {
+          url: '/json_pending_leave', // pedning user leaves
+          color: '#007bff',    // color blue for pedning leaves
+          textColor: 'white'  // font color white for pedning leaves
+        },
+        // Accepted
+        {
+          url: '/json_accepted_leave', // pedning user leaves
+          color: '#28a745',    // color green for pedning leaves
+          textColor: 'white'  // font color white for pedning leaves
+        },
+        // Rejected
+        {
+          url: '/json_rejected_leave', // pedning user leaves
+          color: '#dc3545',    // color red for pedning leaves
+          textColor: 'white'  // font color white for pedning leaves
+        } 
+
+      ]
+
+    });
+
+    calendar.render();
+  });
+
+</script>
+<div class="row justify-content-start mb-3">  
+  <span class="ml-3" style="font-size:13px;">Calendar Legend: </span>
+  <div class="row ml-2">
+    <span class="badge badge-primary ml-3 mr-3">Pending</span>
+    <span class="badge badge-success ml-3 mr-3">Accepted</span>
+    <span class="badge badge-danger ml-3 mr-3">Rejected</span>
+  </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md=lg-10 mb-3">
+        <div class="m-3" id='calendar'></div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,108 @@
+{% extends "ems/base.html" %}
+{% load user_tags %}
+{% block title %}
+    Detail regulations
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .main_info{
+        display: block;
+        width: 270px;
+        padding-right: 50px;
+        float: left;
+    }
+    .info{
+        font-weight: 900;
+        font-size: 16px;
+    }
+    #accept{
+        display: None;
+    }
+</style>
+
+{% include "ems/messages.html" %}
+
+<div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12" >
+        <div class="card shadow">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Regulation info</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <h6 class="main_info">Description: </h6>
+                    <div>
+                        {% if not regulation.regulation.description %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{regulation.regulation.description}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Come into force: </h6>
+                    <div>
+                        {% if not regulation.regulation.come_into_force %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{regulation.regulation.come_into_force}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Date of acceptance: </h6>
+                    <div>
+                        {% if not regulation.accept_date %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{ regulation.accept_date }}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Accept: </h6>
+                    <div>
+                        {% if not regulation.accept %}
+                            <span class="info">No</span>
+                        {% else %}
+                            <span class="info">Yes</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Regulation file: </h6>
+                    <div>
+                        {% if not regulation.regulation.file %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <a id ="show_button" class="btn btn-primary" href="{{ regulation.get_regulation_file_url }}"  target="_blank">View regulation</a>
+                        {% endif %}
+                    </div>
+                <hr>
+                {% if not regulation.accept %}
+                <div id="accept">
+                    <h6 class="main_info">Accept: </h6>
+                        <div>
+                            <a class="btn btn-success" href="{{ regulation.get_accept_regulation_url }}">Accept</a>
+                        </div>
+                    <hr>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+<a href="{% url 'documents:view_list_regulations_user' %}" class="btn btn-primary btn-lg">
+    <span style="color:white;" class="text">Back</span>
+</a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#show_button").click(function(){
+    $("#accept").show();
+  });
+});
+</script>
+{% endblock content %}

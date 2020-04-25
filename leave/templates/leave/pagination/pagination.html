@@ -1,0 +1,18 @@
+<style>
+    .btn{
+        display: block;
+    }
+</style>
+<div class="pagination mt-1">
+    {% if page.has_previous %}
+        <a class="btn" href="?page=1"><<</a>
+        <a class="btn" href="?page={{ page.previous_page_number }}"><</a>
+    {% endif %}
+        <span class="btn btn-primary">{{ page.number }}</span>
+        <span class="btn">of</span>
+        <span class="btn">{{ page.paginator.num_pages }}</span>
+    {% if page.has_next %}
+        <a class="btn" href="?page={{ page.next_page_number }}">></a>
+        <a class="btn" href="?page={{ page.paginator.num_pages }}">>></a>
+    {% endif %}
+</div>

@@ -1,0 +1,13 @@
+{% if messages %}
+    {% for message in messages %}
+    <div id="message" {% if message.tags %} class="alert alert-{{ message.tags }} mr-4 text-center"{% endif %} >{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+$(function() {
+    setTimeout(function() { $("#message").fadeOut(1500); }, 4000)
+})
+</script>

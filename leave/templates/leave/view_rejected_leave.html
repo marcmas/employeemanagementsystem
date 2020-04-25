@@ -1,0 +1,51 @@
+{% extends "ems/base.html" %}
+{% load static %}
+{% block title %}
+    Rejected leaves
+{% endblock title %}
+{% block content %}
+{% include "ems/messages.html" %}
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="m-0 font-weight-bold text-primary">Rejected Leaves</h1>
+            <a href="{% url 'leave:export_employyes_leaves_xls' %}" class="d-none d-sm-inline-block btn btn btn-primary shadow-sm mt-3"><i class="fas fa-download fa-sm text-white-50"></i>Generate Leaves Report</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Type leave</th>
+                <th>Leave Date</th>
+                <th>Return Date</th>
+                <th>Comment</th>
+                <th>Status</th>
+                <th>Enter</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for leave in emplooyee_leaves %}
+            <tr>
+                <td>{{leave.employee.first_name}}</td>
+                <td>{{leave.employee.last_name}}</td>
+                <td>{{leave.leave_type}}</td>
+                <td>{{leave.leave_date}}</td>
+                <td>{{leave.return_date}}</td>
+                <td>{{leave.comment}}</td>
+                <td>{{leave.status}}</td>
+                <td><a class="btn btn-primary text-center" href="{{ leave.get_detail_url }}" style="margin:auto; display:block;">View Details</a></td>
+            </tr>
+            {% endfor %}            
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

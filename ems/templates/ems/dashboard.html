@@ -1,0 +1,498 @@
+{% extends "ems/base.html" %}
+{% load tags %}
+{% load user_tags %}
+{% load documents_tags %}
+
+{% block title %}
+  Dashboard
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .date{
+        display: block;
+        width: 230px;
+        float: left;
+        font-weight: 500;
+    }
+    .notification{
+        display: block;
+        float: left;
+        padding-right: 20px;
+    }
+    .icon{
+        display: block;
+        float: right;
+        font-size: 15px;
+        color: green;
+    }
+    .main_info{
+        display: block;
+        width: 270px;
+        padding-right: 50px;
+        float: left;
+    }
+    .info{
+        font-weight: 900;
+        font-size: 16px;
+    }
+</style>
+
+          <!-- Page Heading -->
+          {% if request.user|has_groups:'employee' %}
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h4 mb-0 text-gray-800">Dashboard</h1>
+          </div>
+          <!-- Content Row -->
+          <div class="row">
+            <!-- Accepted Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'leave:list_leaves' %}">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Accepted Leave Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% accepted_leave_info request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+ 
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'leave:list_leaves' %}">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Leave Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% pending_leave_info request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Rejected Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'leave:list_leaves' %}">
+                <div class="card border-left-danger shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Rejected Leave Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% rejected_leave_info request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- Rejected Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'documents:view_list_regulations_user' %}">
+                <div class="card border-left-danger shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Unread documents</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% unread_regulations request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          {% endif %}
+          {% if request.user|has_groups:'supervisor' %}
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h4 mb-0 text-gray-800">Dashboard</h1>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+            <!-- Accepted Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'user:users' %}">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Your Employees</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% employee_count request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-2x fa-users text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+           
+            <!-- Accepted Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'leave:view_pending_leaves' %}">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Employee Pending Leave Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% accepted_leave_info request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'leave:list_leaves' %}">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Your Pending Leave Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% pending_leave_info request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Rejected Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'documents:view_list_regulations_user' %}">
+                <div class="card border-left-danger shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Unread documents</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% unread_regulations request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if request.user|has_groups:'admin' %}
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h4 mb-0 text-gray-800">Dashboard</h1>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+            <!-- Accepted Requests Card Example -->
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'user:users' %}">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Your Employees</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% employee_count request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-2x fa-users text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            
+
+           
+            <!-- Accepted Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'leave:view_accepted_leaves' %}">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Accepted Leave Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% accepted_leave_info request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'leave:view_pending_leaves' %}">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Leave Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% pending_leave_info request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Rejected Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <a href="{% url 'leave:view_rejected_leaves' %}">
+                <div class="card border-left-danger shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Rejected Leave Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{% rejected_leave_info request %}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="row">
+          <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-4">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Base info about You</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Information:</div>
+                      <a class="dropdown-item" href="{% url 'user:info_user' %}">More info</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <h6 class="main_info">First Name: </h6>
+                      <div>
+                          {% if not user.first_name %}
+                              <span class="info">No data</span>
+                          {% else %}
+                              <span class="info">{{user.first_name}}</span>
+                          {% endif %}
+                      </div>
+                  <hr>
+                  <h6 class="main_info">Last Name: </h6>
+                      <div>
+                          {% if not user.last_name %}
+                              <span class="info">No data</span>
+                          {% else %}
+                              <span class="info">{{user.last_name}}</span>
+                          {% endif %}
+                      </div>
+                  <hr>
+                  <h6 class="main_info">Supervisor: </h6>
+                      <div>
+                          {% if not user.userprofile.boss %}
+                              <span class="info">No data</span>
+                          {% else %}
+                              <span class="info">{{user.userprofile.boss}}</span>
+                          {% endif %}
+                      </div>
+                  <hr>
+                  <h6 class="main_info">Section: </h6>
+                      <div>
+                          {% if not user.userprofile.section %}
+                              <span class="info">No data</span>
+                          {% else %}
+                              <span class="info">{{user.userprofile.section}}</span>
+                          {% endif %}
+                      </div>
+                  <hr>
+                  <h6 class="main_info">Firm: </h6>
+                      <div>
+                          {% if not user.userprofile.firm %}
+                              <span class="info">No data</span>
+                          {% else %}
+                              <span class="info">{{ user.userprofile.firm }}</span>
+                          {% endif %}
+                      </div>
+                  <hr>
+                  <h6 class="main_info">Postition: </h6>
+                      <div>
+                          {% if not user.userprofile.possition %}
+                              <span class="info">No data</span>
+                          {% else %}
+                              <span class="info">{{ user.userprofile.possition }}</span>
+                          {% endif %}
+                      </div>
+                </div>
+              </div>
+            </div>
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-8">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">15 Last Leave Notifications</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Notifications:</div>
+                      <a class="dropdown-item" href="{% url 'leave:view_notifications' %}">All notifications</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                      <ul class="list-group">
+                        {% if notificat %}
+                        {% for n in notificat %}
+                            {% if not n.read %}
+                                <a class="list-group-item mb-2" href="{% url 'leave:accept_notifications' n.id %}"><span class="date {% if not n.read %}font-weight-bold {% endif %}">{{n.date_created|date:"d-m-Y H:m:s"}}</span><span class="notification {% if not n.read %}font-weight-bold {% endif %}">{{ n.notification }}</span><i class="icon {% if not n.read %} fas fa-times {% else %} fas fa-check {% endif %} "></i></a>
+                            {% endif %}
+                            {% if n.read %}
+                                <li class="list-group-item mb-2"><span class="date {% if not n.read %}font-weight-bold {% endif %}">{{n.date_created|date:"d-m-Y H:m:s"}}</span><span class="notification {% if not n.read %}font-weight-bold {% endif %}">{{ n.notification }}</span><i class="icon {% if not n.read %} fas fa-times {% else %} fas fa-check {% endif %} "></i></li>
+                            {% endif %}
+                        {% endfor %}                
+                        {% else %}
+                          <li class="list-group-item mb-2"><span class="">You does't have any notification</span></i></li>
+                        {% endif %}
+                    </ul>
+                    {% include "leave/pagination/pagination.html" with page=notificat %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Content Column -->
+            <div class="col-lg-6 mb-4">
+
+              <!-- Project Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Last Documents</h6>
+                </div>
+                <div class="card-body">
+                      {% if documents %}
+                      <ul class="list-group">
+                        {% for d in documents %}
+                          <a class="list-group-item mb-2" href="{% url 'documents:view_detail_regulation_for_users' d.regulation.id %}">
+                            <h6 class="main_info">{{ d.regulation.description }}</h6>
+                                <div>
+                                  <span class="">Come into force: {{ d.regulation.come_into_force|date:"d-m-Y" }}</span>
+                                </div>
+                          </a>
+                        {% endfor %}
+                      </ul>
+                      {% else %}
+                        <span class="list-group-item mb-2"><span class="">You does't have any notification</span></i></span>
+                    {% endif %}
+                    {% include "documents/pagination/pagination.html" with page=documents %}
+                </div>
+              </div>
+            </div>
+            
+            <!-- Content Column -->
+            <div class="col-lg-6 mb-4">
+
+              <!-- Project Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Certificate</h6>
+                </div>
+                <div class="card-body">
+                  <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
+                  <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
+                  <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
+                  <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
+                  <div class="progress mb-4">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
+                  <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; MM 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+ 
+{% endblock content %}

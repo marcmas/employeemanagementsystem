@@ -1,0 +1,30 @@
+{% extends "ems/base.html" %}
+{% load static %}
+{% load user_tags %}
+{% block content %}
+<!-- Messages -->
+{% include "ems/messages.html" %}
+
+<hr>
+<div class="row justify-content-center">
+    <div class="col-ld-6 mb-3">
+
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-lg-12 mb-3">
+                    <label for="validationServer01">Bank Name</label>
+                    {{form.bank_name}}
+                </div>
+                <div class="col-lg-12 mb-3">
+                    <label for="validationServer01">Bank Number</label>
+                    {{form.bank_number}}
+
+                </div> 
+            <hr>
+            <button class="btn btn-lg btn-primary" type="submit">Update employee</button>
+
+        </form>
+    </div>
+</div>
+{% endblock content %}

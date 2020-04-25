@@ -1,0 +1,80 @@
+{% extends "ems/base.html" %}
+<!-- Messages -->
+{% block content %}
+
+<style>
+    label{
+        margin-top: 15px;
+    }
+    .checkbox_form{
+        margin-left: 10px;
+    }
+    .custom-file{
+        margin-top: 29px;
+    }
+</style>
+
+<hr>
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <form method="POST" action="" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-row">
+                <div class="col-lg-6 form">
+                    <label for="validationServer01">Employees:</label>
+                    {{form.employee}}
+                </div>
+                <div class="col-lg-6 form">
+                    <label for="validationServer01">Description:</label>
+                    {{form.description}}
+                </div>
+                <div class="col-lg-6 form">
+                    <label for="validationServer01">Come into force:</label>
+                    {{form.come_into_force}}
+                </div>
+                <div class="col-lg-6 custom-file">
+                    <label class="custom-file-label" for="customFile">Choose file:</label>
+                    {{form.file}}
+                </div>
+                <div class="col-lg-6 form-check mt-2">
+                    <label class="form-check-label ml-1" for="customControlInline"><span class="">{{form.necessary}}</span>Necessary</label>
+                </div>
+            </div>
+            <hr>
+            <button class="btn btn-lg btn-primary" type="submit">Add regulation</button>
+        </form>
+    </div>
+</div>
+
+<!-- For datepicker -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+<script>
+    $('#datepicker').datepicker({disableDaysOfWeek: [0, 6], weekStartDay: 1, uiLibrary: 'bootstrap4', format: 'yyyy-mm-dd'});
+</script>
+
+<!-- For file input -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+{% endblock content %}

@@ -1,0 +1,500 @@
+{% extends "ems/base.html" %}
+{% load user_tags %}
+
+{% block content %}
+<style>
+    .info{
+        display: block;
+        font-weight: 700;
+        font-size: 22px;
+    }
+    .main_info{
+        display: block;
+        width: 270px;
+        padding-right: 50px;
+        float: left;
+        font-size: 12px;
+    }
+    .base_info{
+        font-weight: 500;
+        font-size: 13px;
+        font-weight: 600;
+    }
+</style>
+<!-- Messages -->
+{% include "ems/messages.html" %}
+
+<div class="row ml-3">
+    <a class="btn btn-primary" href="{% url 'user:users' %}">Back</a>
+</div>
+<div class="row justify-content-center">
+
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mt-3">
+        <div class="card shadow mb-2">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Profile</h6>
+        </div>
+            <div class="card-body col-xl-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="card-body col-xl-3 col-sm-12 col-xs-12">
+                        <div>
+                                <span>First Name</span>
+                            {% if not user.first_name %}
+                                <span class="info">Brak danych</span>
+                            {% else %}
+                                <span class="info">{{user.first_name}}</span>
+                            {% endif %}
+                        </div>
+                    </div>    
+                    <div class="card-body col-xl-3 col-sm-12 col-xs-12">
+                        <div>
+                                <span>Last Name</span>
+                            {% if not user.last_name %}
+                                <span class="info">Brak danych</span>
+                            {% else %}
+                                <span class="info">{{user.last_name}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-body col-xl-3 col-sm-12 col-xs-12">
+                        <div>
+                                <span>Username</span>
+                            {% if not user.username %}
+                                <span class="info">Brak danych</span>
+                            {% else %}
+                                <span class="info">{{user.username}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                        <div class="card-body col-xl-3 col-sm-12 col-xs-12">
+                            <a href="{% url 'user:update_profile_picture' user.id %}" data-toggle="tooltip" data-placement="top" title="Change profile picture">
+                                <img style="height:80px;" class="img-profile rounded-circle" alt="Change" src="{{ user.userprofile.image.url }}" alt="">
+                            </a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if request.user|has_groups:'hr,supervisor,admin' %}
+
+<div class="row justify-content-center">
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mt-3">
+        <div class="card shadow mb-2">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Set new password</h6>
+        </div>
+            <div class="card-body col-xl-12 col-sm-12 col-xs-12">
+                <div class="row justify-content-center">
+                    <a class="btn btn-primary" href="{% url 'user:set_new_password' user.id %}">Download user password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Dropdown Card Example -->
+        <div class="card shadow mb-2">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Base Info</h6>
+            {% if request.user|has_groups:'hr,admin' %}
+
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Action:</div>
+                    <a class="dropdown-item" href="{% url 'user:update_base_info' user.id %}">Change</a>
+                </div>
+            </div>
+            {% endif %}
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <span class="main_info">First Name: </span>
+                    <div>
+                        {% if not user.first_name %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.first_name }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Last Name: </span>
+                    <div>
+                        {% if not user.last_name %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.last_name }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Email: </span>
+                    <div>
+                        {% if not user.email %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.email }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Username: </span>
+                    <div>
+                        {% if not user.username %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.username }}</span>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Dropdown Card Example -->
+        <div class="card shadow mb-2">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Profile Info</h6>
+            {% if request.user|has_groups:'hr,admin' %}
+
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Action:</div>
+                    <a class="dropdown-item" href="{% url 'user:update_userprofile_info' user.id %}">Change</a>
+                </div>
+            </div>
+            {% endif %}
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <span class="main_info">Supervisor: </span>
+                    <div>
+                        {% if not user.userprofile.boss %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.userprofile.boss }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Firm: </span>
+                    <div>
+                        {% if not user.userprofile.firm %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.userprofile.firm }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Country: </span>
+                    <div>
+                        {% if not user.userprofile.country %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.userprofile.country }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Street: </span>
+                    <div>
+                        {% if not user.userprofile.street %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.userprofile.street }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Zip Code: </span>
+                    <div>
+                        {% if not user.userprofile.zip_code %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.userprofile.zip_code }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Phone Number: </span>
+                    <div>
+                        {% if not user.userprofile.phone_number %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.userprofile.phone_number }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Position: </span>
+                    <div>
+                        {% if not user.userprofile.possition %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.userprofile.possition }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Section: </span>
+                    <div>
+                        {% if not user.userprofile.section %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.userprofile.section }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Birth Date: </span>
+                    <div>
+                        {% if not user.userprofile.birth_date %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.userprofile.birth_date }}</span>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Dropdown Card Example -->
+        <div class="card shadow mb-2">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Salary Info</h6>
+            {% if request.user|has_groups:'hr,admin' %}
+
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Action:</div>
+                    <a class="dropdown-item" href="{% url 'user:update_salaryinfo_info' user.id %}">Change</a>
+                </div>
+            </div>
+            {% endif %}
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <span class="main_info">Salary: </span>
+                    <div>
+                        {% if not user.salaryinfo.salary %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.salaryinfo.salary }} $</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Year Salary: </span>
+                    <div>
+                        {% if not user.salaryinfo.year_salary %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.salaryinfo.year_salary }} $</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Type of contract: </span>
+                    <div>
+                        {% if not user.salaryinfo.type_contract %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.salaryinfo.type_contract }}</span>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Dropdown Card Example -->
+        <div class="card shadow mb-2">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Bank Info</h6>
+            {% if request.user|has_groups:'hr,admin' %}
+
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Action:</div>
+                    <a class="dropdown-item" href="{% url 'user:update_bankinfo_info' user.id %}">Change data</a>
+                </div>
+            </div>
+            {% endif %}
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <span class="main_info">Bank Name: </span>
+                    <div>
+                        {% if user.bankinfo.bank_name == None %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.bankinfo.bank_name }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Bank Number: </span>
+                    <div>
+                        {% if user.bankinfo.bank_number == None %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.bankinfo.bank_number }}</span>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Dropdown Card Example -->
+        <div class="card shadow mb-2">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Vacation Limit Info</h6>
+            {% if request.user|has_groups:'hr,admin' %}
+
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Action:</div>
+                    <a class="dropdown-item" href="{% url 'leave:update_vacation_limits' user.id %}">Change</a>
+                </div>
+            </div>
+            {% endif %}
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <span class="main_info">Normal days constant: </span>
+                    <div>
+                        {% if user.vacationlimit.normal_days_constant == None %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.vacationlimit.normal_days_constant }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Normal days: </span>
+                    <div>
+                        {% if user.vacationlimit.normal_days == None %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.vacationlimit.normal_days }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Request days constant: </span>
+                    <div>
+                        {% if user.vacationlimit.request_days_constant == None %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.vacationlimit.request_days_constant }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Request days: </span>
+                    <div>
+                        {% if user.vacationlimit.request_days == None %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.vacationlimit.request_days }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Children days constant: </span>
+                    <div>
+                        {% if user.vacationlimit.children_days_constant == None %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.vacationlimit.children_days_constant }}</span>
+                        {% endif %}
+                    </div>
+                <span class="main_info">Children days: </span>
+                    <div>
+                        {% if user.vacationlimit.children_days == None %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.vacationlimit.children_days }}</span>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <!-- Dropdown Card Example -->
+        <div class="card shadow mb-2">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Role Info</h6>
+            {% if request.user|has_groups:'hr,admin' %}
+
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Action:</div>
+                    <a class="dropdown-item" href="#">Change</a>
+                </div>
+            </div>
+            {% endif %}
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <span class="main_info">Role: </span>
+                    <div>
+                        {% if not user.groups.all.0 %}
+                            <span class="base_info">Brak danych</span>
+                        {% else %}
+                            <span class="base_info">{{ user.groups.all.0 }}</span>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% if request.user|has_groups:'hr' %}
+
+<div class="row justify-content-center mb-4">
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mt-3">
+        <div class="card shadow mb-2">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Delete User {{ user.first_name }} {{ user.last_name }} </h6>
+        </div>
+            <div class="card-body col-xl-12 col-sm-12 col-xs-12">
+                <div class="row justify-content-center">
+                    <a class="btn btn-lg btn-danger" href="{% url 'user:delete_user' user.id %}" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Delete?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">Select "Delete" below if you are sure of delete user.</div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-danger" href="{% url 'user:delete_user' user.id %}">Delete</a>
+        </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}

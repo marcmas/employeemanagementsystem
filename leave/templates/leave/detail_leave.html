@@ -1,0 +1,214 @@
+{% extends "ems/base.html" %}
+{% load user_tags %}
+{% block title %}
+    Detail leave
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .main_info{
+        display: block;
+        width: 270px;
+        padding-right: 50px;
+        float: left;
+    }
+    .info{
+        font-weight: 900;
+        font-size: 16px;
+    }
+</style>
+
+{% include "ems/messages.html" %}
+
+{% if request.user|has_groups:'supervisor,admin' %}
+
+<div class="row">
+    <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12" >
+        <div class="card shadow">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Employee info</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <h6 class="main_info">First Name: </h6>
+                    <div>
+                        {% if not unique_leave.employee.first_name %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.employee.first_name}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Last Name: </h6>
+                    <div>
+                        {% if not unique_leave.employee.last_name %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.employee.last_name}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Possition: </h6>
+                    <div>
+                        {% if not unique_leave.employee.userprofile.possition %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.employee.userprofile.possition}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Street: </h6>
+                    <div>
+                        {% if not unique_leave.employee.userprofile.street %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.employee.userprofile.street}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Phone Number: </h6>
+                    <div>
+                        {% if not unique_leave.employee.userprofile.phone_number %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.employee.userprofile.phone_number}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Normal days: </h6>
+                    <div>
+                        {% if not unique_leave.employee.vacationlimit.normal_days%}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.employee.vacationlimit.normal_days}} days</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Children days: </h6>
+                    <div>
+                        {% if not unique_leave.employee.vacationlimit.children_days %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.employee.vacationlimit.children_days}} days</span>
+                        {% endif %}
+                    </div>
+                <hr>
+
+                <h6 class="main_info">Request days: </h6>
+                    <div>
+                        {% if not unique_leave.employee.vacationlimit.request_days %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.employee.vacationlimit.request_days}} days</span>
+                        {% endif %}
+                    </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12">
+        <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Leave info</h6>
+        </div>
+        <!-- Card Body -->
+                <div class="card-body">
+                <h6 class="main_info">Type Leave: </h6>
+                    <div>
+                        {% if not unique_leave.leave_type %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.leave_type}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Leave Date: </h6>
+                    <div>
+                        {% if not unique_leave.leave_date %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.leave_date}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+
+                <h6 class="main_info">Retrun Date: </h6>
+                    <div>
+                        {% if not unique_leave.return_date %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.return_date}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Count Days: </h6>
+                    <div>
+                        {% if not user.userprofile.country %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.days}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Comment: </h6>
+                    <div>
+                        {% if not unique_leave.comment %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.comment}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+
+                <h6 class="main_info">Status: </h6>
+                    <div>
+                        {% if not user.userprofile.zip_code %}
+                            <span class="info">0</span>
+                        {% else %}
+                            <span class="info">{{unique_leave.status}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+    {% endif %}
+
+    {% if request.user|has_groups:'supervisor,admin' %}
+    {% if unique_leave.status == 'Reject' or unique_leave.status == 'Accept' %}
+    {% else %}
+                <div class="row justify-content-center">
+                    <button class="btn btn-success btn-lg btn-icon-split mt-3 mr-2" data-toggle="modal" data-target=".accept_leave">
+                        <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                        </span>
+                        <span class="text">Accept leave</span>
+                    </button>
+                    <button class="btn btn-warning btn-lg btn-icon-split mt-3" data-toggle="modal" data-target=".reject_leave">
+                        <span class="icon text-white-50">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                        <span class="text">Reject leave</span>
+                    </button>
+                </div>
+    {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+    {% endif %}
+
+{% if request.user|has_groups:'supervisor,admin' %}
+
+<!-- Modals for accept and reject action -->
+{% include "leave/reject_leave.html" %}
+{% include "leave/accept_leave.html" %}
+{% endif %}
+
+<hr>
+<a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary btn-lg">
+    <span style="color:white;" class="text">Back</span>
+</a>
+
+{% endblock content %}

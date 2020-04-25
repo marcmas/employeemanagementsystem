@@ -1,0 +1,32 @@
+{% block content %}
+<div class="modal fade accept_leave" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Accept leave</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to accept this leave?</p>
+        </div>
+        <div class="modal-footer">
+            <form method="POST" action="{% url 'leave:accept_leave' unique_leave.id %}">
+            {% csrf_token %}
+            <input class="btn btn-lg btn-primary" type="Submit" value="Accept">
+            </form>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% comment %} <h1>Are you sure you want to accept this leave?</h1>
+<form method="POST" action="">
+{% csrf_token %}
+<input class="btn btn-lg btn-primary" type="Submit">
+</form>
+<a class="btn btn-lg btn-secondary" href="">No</a> {% endcomment %}

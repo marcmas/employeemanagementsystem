@@ -1,0 +1,35 @@
+{% extends "ems/base.html" %}
+{% load static %}
+
+{% block content %}
+{% include "ems/messages.html" %}
+
+<!-- Display users -->
+<h2 class="mb-4">Employees</h2>
+
+<div class="row">
+{% for u in users %}
+  <div class="w3-container mb-4 col-lg-6 col-sm-12 col-md-12">
+    <ul class="w3-ul w3-card-4">
+      <li class="w3-bar">
+        <img src="{{ u.userprofile.image.url }}" class="w3-bar-item w3-circle w3-hide-small" style="width:100px">
+        <div class="w3-bar-item">
+          <span class="w3-xlarge">{{u.username}}</span><br>
+          <span>Stanowisko: {% if u.userprofile.possition == None %} No data. Fill information {% else %}{{u.userprofile.possition}} {% endif %}</span><br>
+          <span>Dział: {% if u.userprofile.section == None %} No data. Fill information {% else %}{{u.userprofile.section}} {% endif %}</span>
+        </div>
+          {% comment %} <a class="btn btn-lg btn-primary mt-4 mr-2 float-right" href="{% url 'user:update_employee' u.id %}">Update Info</a> {% endcomment %}
+          <a class="btn btn-lg btn-primary mt-4 mr-2 float-right" href="{% url 'user:view_user_info' u.id %}">View</a>
+      </li>
+    </ul>
+  </div>
+
+
+{% endfor %}
+<div class="col-lg-12 col-sm-12 col-md-12">
+  {% include "user/pagination/pagination_users.html" with page=users %}
+</div>
+</div>
+
+
+{% endblock content %}

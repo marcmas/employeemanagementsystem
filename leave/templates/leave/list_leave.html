@@ -1,0 +1,53 @@
+{% extends "ems/base.html" %}
+{% load static %}
+{% block title %}
+    Your leaves
+{% endblock title %}
+{% block content %}
+
+<!-- Messages -->
+{% include "ems/messages.html" %}
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h1 class="m-0 font-weight-bold text-primary">Your Leaves</h1>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Type leave</th>
+                    <th>Leave Date</th>
+                    <th>Return Date</th>
+                    <th>Comment</th>
+                    <th>Days</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in emplooyee_leaves %}
+                <tr>
+                    <td>{{leave.leave_type}}</td>
+                    <td>{{leave.leave_date|date:"d-m-Y"}}</td>
+                    <td>{{leave.return_date|date:"d-m-Y"}}</td>
+                    <td>{{leave.comment}}</td>
+                    <td>{{leave.days}}</td>
+                    <td>
+                    {% if leave.status == 'Pending' %}
+                        <span class="font-weight-bold text-warning">{{leave.status}}</span>
+                    {% elif leave.status == 'Accept' %}
+                        <span class="font-weight-bold text-success">{{leave.status}}</span>
+                    {% else %}
+                        <span class="font-weight-bold text-danger">{{leave.status}}</span>
+                    {% endif %}</td>
+                </tr>
+                {% endfor %}            
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

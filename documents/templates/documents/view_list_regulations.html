@@ -1,0 +1,43 @@
+{% extends "ems/base.html" %}
+<!-- Messages -->
+{% block title %}
+    Regulations
+{% endblock title %}
+{% block content %}
+<!-- Messages -->
+{% include "ems/messages.html" %}
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h1 class="m-0 font-weight-bold text-primary">Regulations</h1>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Necessary</th>
+                    <th>Come into force</th>
+                    <th>File Name</th>
+                    <th>Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in regulations %}
+                <tr>
+                    <td>{{r.description}}</td>
+                    <td>{{r.necessary}}</td>
+                    <td>{{r.come_into_force|date:"d-m-Y"}}</td>
+                    <td>{{r.file}}</td>
+                    <td><a class="btn btn-primary" href="{{ r.get_detail_url }}" style="margin:auto; display:block;">View Details</a></td>
+                </tr>
+                {% endfor %}            
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

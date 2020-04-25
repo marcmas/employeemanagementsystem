@@ -1,0 +1,87 @@
+{% extends "ems/base.html" %}
+{% load user_tags %}
+{% block title %}
+    Detail regulations
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .main_info{
+        display: block;
+        width: 270px;
+        padding-right: 50px;
+        float: left;
+    }
+    .info{
+        font-weight: 900;
+        font-size: 16px;
+    }
+</style>
+
+{% include "ems/messages.html" %}
+
+<div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12" >
+        <div class="card shadow">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Regulation info</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <h6 class="main_info">Send to Employees: </h6>
+                <select class="form-control col-lg-6" id="exampleFormControlSelect1">
+                    {% for e in regulation.employee.all %}
+                        <option value="">{{e.first_name}} {{e.last_name}}</option>
+                    {% endfor %}
+                </select>
+                <hr>
+                <h6 class="main_info">Description: </h6>
+                    <div>
+                        {% if not regulation.description %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{regulation.description}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Necessary: </h6>
+                    <div>
+                        {% if not regulation.necessary %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{regulation.necessary}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Come into force: </h6>
+                    <div>
+                        {% if not regulation.come_into_force %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <span class="info">{{regulation.come_into_force}}</span>
+                        {% endif %}
+                    </div>
+                <hr>
+                <h6 class="main_info">Regulation: </h6>
+                    <div>
+                        {% if not regulation.file %}
+                            <span class="info">No data</span>
+                        {% else %}
+                            <a class="btn btn-primary mb-2" href="{{ regulation.get_accept_regulation_url }}">View Regulation New Page</a>
+                            <img class="col-lg-12" width=750 src="{{regulation.file.url}}">
+                        {% endif %}
+                    </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+<a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary btn-lg">
+    <span style="color:white;" class="text">Back</span>
+</a>
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "ems/base.html" %}
+{% load static %}
+{% block title %}
+    Accepted leave
+{% endblock title %}
+{% block content %}
+{% include "ems/messages.html" %}
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="m-0 font-weight-bold text-primary">Your limits employees</h1>
+            <a href="{% url 'leave:export_employyes_limits_xls' %}" class="d-none d-sm-inline-block btn btn btn-primary shadow-sm mt-3"><i class="fas fa-download fa-sm text-white-50"></i>Generate Vacation Limits Report</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Enter</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{employee.first_name}}</td>
+                <td>{{employee.last_name}}</td>
+                <td><a class="btn btn-primary" href="{% url 'leave:view_employees_limits' employee.id %}" style="margin:auto; display:block;">View Emloyee limits</a></td>
+            </tr>
+            {% endfor %}            
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

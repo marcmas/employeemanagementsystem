@@ -1,0 +1,40 @@
+{% extends "ems/base.html" %}
+
+{% block content %}
+{% include "ems/messages.html" %}
+
+<div class="row justify-content-center">
+    <div class="card shadow mb-4 col-lg-6">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary text-center">Export your leaves to Excel</h4>
+        </div>
+        <div class="card-body text-center">
+            <h4 class="font-weight-bold">Select the range from which you want to export your holidays</h4>
+            <hr>
+            <code>Make sure you have completed both fields</code>
+            <hr>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <form class="col-lg-6" method="POST" action="">
+        {% csrf_token %}
+        <label for="validationServer01">Leave Date</label>
+        {{form.leave_date}}
+        <hr>
+        <label for="validationServer01">Return Date</label>
+        {{form.return_date}}
+        <hr>
+        <button class="btn btn-lg btn-primary" type="submit">Export to Excel File</button>
+    </form>
+</div>
+
+<!-- For datepicker -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+<script>
+    $('#datepicker').datepicker({disableDaysOfWeek: [0, 6], weekStartDay: 1, uiLibrary: 'bootstrap4', format: 'yyyy-mm-dd'});
+    $('#datepicker1').datepicker({disableDaysOfWeek: [0, 6], weekStartDay: 1, uiLibrary: 'bootstrap4', format: 'yyyy-mm-dd'});
+</script>
+{% endblock content %}
