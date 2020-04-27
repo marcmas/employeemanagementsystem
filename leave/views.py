@@ -150,16 +150,55 @@ def addLeave(request, *args):
     if request.method == 'POST':
         leave_date = request.POST.get('leave_date')
         return_date = request.POST.get('return_date')
+        leave_type = request.POST.get('leave_type')
+
         leave_date = datetime.datetime.strptime(leave_date, '%Y-%m-%d').date()
         return_date = datetime.datetime.strptime(return_date, '%Y-%m-%d').date()
         check = True
+
+        # Check if user has a leaves in given dates
         if user_leaves:
             for leave in user_leaves:
                 if leave_date <= leave.leave_date <= return_date:
                     check = False
+            # If user hasn't a leaves in given dates
             if check:
                 holiday_days = np.busday_count(leave_date, return_date) + 1
-                if vacation_limits.normal_days >= holiday_days:
+                # Check all types of leaves
+                if leave_type == 'Vacation leave':
+                    if vacation_limits.normal_days >= holiday_days:
+                        form = CreateLeaveForm(request.POST or None)
+                        if form.is_valid():
+                            form.instance.employee = user
+                            form.instance.days = holiday_days
+                            form.save()
+                            messages.success(request, "You request has been send")
+                            return redirect('/list_leaves')
+                    else:
+                        messages.warning(request, "You don't have enough days")
+                elif leave_type == 'Vacation childcare':
+                    if vacation_limits.children_days >= holiday_days:
+                        form = CreateLeaveForm(request.POST or None)
+                        if form.is_valid():
+                            form.instance.employee = user
+                            form.instance.days = holiday_days
+                            form.save()
+                            messages.success(request, "You request has been send")
+                            return redirect('/list_leaves')
+                    else:
+                        messages.warning(request, "You don't have enough days")
+                elif leave_type == 'Vacation on demand':
+                    if vacation_limits.request_days >= holiday_days:
+                        form = CreateLeaveForm(request.POST or None)
+                        if form.is_valid():
+                            form.instance.employee = user
+                            form.instance.days = holiday_days
+                            form.save()
+                            messages.success(request, "You request has been send")
+                            return redirect('/list_leaves')
+                    else:
+                        messages.warning(request, "You don't have enough days")
+                else:
                     form = CreateLeaveForm(request.POST or None)
                     if form.is_valid():
                         form.instance.employee = user
@@ -167,8 +206,6 @@ def addLeave(request, *args):
                         form.save()
                         messages.success(request, "You request has been send")
                         return redirect('/list_leaves')
-                else:
-                    messages.warning(request, "You don't have enough days")
             else:
                 messages.warning(request, "You have leave in these days")
         else:
@@ -397,8 +434,8 @@ def viewNotifications(request):
 
 
 # Dashobords
-@check_regulation
 @allowed_users(allowed_roles=['admin', 'employee', 'hr', 'supervisor'])
+@check_regulation
 def dashboard(request, **kwargs):
     user = request.user
 

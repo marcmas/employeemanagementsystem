@@ -41,7 +41,7 @@
                         <div>
                                 <span>First Name</span>
                             {% if not user.first_name %}
-                                <span class="info">Brak danych</span>
+                                <span class="info">No data</span>
                             {% else %}
                                 <span class="info">{{user.first_name}}</span>
                             {% endif %}
@@ -51,7 +51,7 @@
                         <div>
                                 <span>Last Name</span>
                             {% if not user.last_name %}
-                                <span class="info">Brak danych</span>
+                                <span class="info">No data</span>
                             {% else %}
                                 <span class="info">{{user.last_name}}</span>
                             {% endif %}
@@ -61,7 +61,7 @@
                         <div>
                                 <span>Username</span>
                             {% if not user.username %}
-                                <span class="info">Brak danych</span>
+                                <span class="info">No data</span>
                             {% else %}
                                 <span class="info">{{user.username}}</span>
                             {% endif %}
@@ -120,7 +120,7 @@
                 <span class="main_info">First Name: </span>
                     <div>
                         {% if not user.first_name %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.first_name }}</span>
                         {% endif %}
@@ -128,7 +128,7 @@
                 <span class="main_info">Last Name: </span>
                     <div>
                         {% if not user.last_name %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.last_name }}</span>
                         {% endif %}
@@ -136,7 +136,7 @@
                 <span class="main_info">Email: </span>
                     <div>
                         {% if not user.email %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.email }}</span>
                         {% endif %}
@@ -144,7 +144,7 @@
                 <span class="main_info">Username: </span>
                     <div>
                         {% if not user.username %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.username }}</span>
                         {% endif %}
@@ -179,7 +179,7 @@
                 <span class="main_info">Supervisor: </span>
                     <div>
                         {% if not user.userprofile.boss %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.userprofile.boss }}</span>
                         {% endif %}
@@ -187,7 +187,7 @@
                 <span class="main_info">Firm: </span>
                     <div>
                         {% if not user.userprofile.firm %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.userprofile.firm }}</span>
                         {% endif %}
@@ -195,7 +195,7 @@
                 <span class="main_info">Country: </span>
                     <div>
                         {% if not user.userprofile.country %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.userprofile.country }}</span>
                         {% endif %}
@@ -203,7 +203,7 @@
                 <span class="main_info">Street: </span>
                     <div>
                         {% if not user.userprofile.street %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.userprofile.street }}</span>
                         {% endif %}
@@ -211,7 +211,7 @@
                 <span class="main_info">Zip Code: </span>
                     <div>
                         {% if not user.userprofile.zip_code %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.userprofile.zip_code }}</span>
                         {% endif %}
@@ -219,7 +219,7 @@
                 <span class="main_info">Phone Number: </span>
                     <div>
                         {% if not user.userprofile.phone_number %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.userprofile.phone_number }}</span>
                         {% endif %}
@@ -227,7 +227,7 @@
                 <span class="main_info">Position: </span>
                     <div>
                         {% if not user.userprofile.possition %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.userprofile.possition }}</span>
                         {% endif %}
@@ -235,7 +235,7 @@
                 <span class="main_info">Section: </span>
                     <div>
                         {% if not user.userprofile.section %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.userprofile.section }}</span>
                         {% endif %}
@@ -243,7 +243,7 @@
                 <span class="main_info">Birth Date: </span>
                     <div>
                         {% if not user.userprofile.birth_date %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.userprofile.birth_date }}</span>
                         {% endif %}
@@ -279,7 +279,7 @@
                 <span class="main_info">Salary: </span>
                     <div>
                         {% if not user.salaryinfo.salary %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.salaryinfo.salary }} $</span>
                         {% endif %}
@@ -287,7 +287,7 @@
                 <span class="main_info">Year Salary: </span>
                     <div>
                         {% if not user.salaryinfo.year_salary %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.salaryinfo.year_salary }} $</span>
                         {% endif %}
@@ -295,7 +295,7 @@
                 <span class="main_info">Type of contract: </span>
                     <div>
                         {% if not user.salaryinfo.type_contract %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.salaryinfo.type_contract }}</span>
                         {% endif %}
@@ -331,7 +331,7 @@
                 <span class="main_info">Bank Name: </span>
                     <div>
                         {% if user.bankinfo.bank_name == None %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.bankinfo.bank_name }}</span>
                         {% endif %}
@@ -339,7 +339,7 @@
                 <span class="main_info">Bank Number: </span>
                     <div>
                         {% if user.bankinfo.bank_number == None %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.bankinfo.bank_number }}</span>
                         {% endif %}
@@ -374,7 +374,7 @@
                 <span class="main_info">Normal days constant: </span>
                     <div>
                         {% if user.vacationlimit.normal_days_constant == None %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.vacationlimit.normal_days_constant }}</span>
                         {% endif %}
@@ -382,7 +382,7 @@
                 <span class="main_info">Normal days: </span>
                     <div>
                         {% if user.vacationlimit.normal_days == None %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.vacationlimit.normal_days }}</span>
                         {% endif %}
@@ -390,7 +390,7 @@
                 <span class="main_info">Request days constant: </span>
                     <div>
                         {% if user.vacationlimit.request_days_constant == None %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.vacationlimit.request_days_constant }}</span>
                         {% endif %}
@@ -398,7 +398,7 @@
                 <span class="main_info">Request days: </span>
                     <div>
                         {% if user.vacationlimit.request_days == None %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.vacationlimit.request_days }}</span>
                         {% endif %}
@@ -406,7 +406,7 @@
                 <span class="main_info">Children days constant: </span>
                     <div>
                         {% if user.vacationlimit.children_days_constant == None %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.vacationlimit.children_days_constant }}</span>
                         {% endif %}
@@ -414,7 +414,7 @@
                 <span class="main_info">Children days: </span>
                     <div>
                         {% if user.vacationlimit.children_days == None %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.vacationlimit.children_days }}</span>
                         {% endif %}
@@ -449,7 +449,7 @@
                 <span class="main_info">Role: </span>
                     <div>
                         {% if not user.groups.all.0 %}
-                            <span class="base_info">Brak danych</span>
+                            <span class="base_info">No data</span>
                         {% else %}
                             <span class="base_info">{{ user.groups.all.0 }}</span>
                         {% endif %}

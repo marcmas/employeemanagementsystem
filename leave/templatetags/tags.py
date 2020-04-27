@@ -28,7 +28,7 @@ def pending_leave_info(request):
 @register.simple_tag
 def rejected_leave_info(request):
     user = request.user
-    return Leave.objects.filter(employee=user).filter(status='Rejected').count()
+    return Leave.objects.filter(employee=user).filter(status='Reject').count()
 
 # @register.simple_tag
 # def show_results(value):

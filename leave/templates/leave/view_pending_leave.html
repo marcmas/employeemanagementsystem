@@ -37,7 +37,13 @@
                 <td>{{leave.leave_type}}</td>
                 <td>{{leave.leave_date}}</td>
                 <td>{{leave.return_date}}</td>
-                <td>{{leave.comment}}</td>
+                <td>
+                    {% if leave.comment %}
+                        {{leave.comment}}
+                    {% else %}
+                        No comment
+                    {% endif %}
+                </td>
                 <td>{{leave.status}}</td>
                 <td><a class="btn btn-primary" href="{{ leave.get_detail_url }}" style="margin:auto; display:block;">View Details</a></td>
             </tr>

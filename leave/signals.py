@@ -22,16 +22,17 @@ def substract_vacation_limits(sender, instance, created, **kwargs):
     if created:
         limits = VacationLimit.objects.get(employee=instance.leave.employee.id)
         if instance.leave.leave_type == 'Vacation leave':
-            limits.normal_days = limits.normal_days - instance.leave.days
+            limits.normal_days -= instance.leave.days
             limits.save()
             if limits.normal_days < 4:
                 limits.request_days = limits.normal_days
                 limits.save()
         elif instance.leave.leave_type == 'Vacation childcare':
-            limits.children_days = limits.children_days - instance.leave.days
+            limits.children_days -= instance.leave.days
             limits.save()
-        elif instance.leave.leave_type == 'Vacation on demand' or instance.leave.leave_type == 'Occasional holidays':
-            limits.request_days = limits.request_days - instance.leave.days
+        elif instance.leave.leave_type == 'Vacation on demand':
+            limits.request_days -=  instance.leave.days
+            limits.normal_days -= instance.leave.days
             limits.save()
         else:
             pass

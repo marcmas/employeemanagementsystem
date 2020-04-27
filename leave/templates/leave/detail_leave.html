@@ -80,7 +80,7 @@
                 <h6 class="main_info">Normal days: </h6>
                     <div>
                         {% if not unique_leave.employee.vacationlimit.normal_days%}
-                            <span class="info">No data</span>
+                            <span class="info">0 days</span>
                         {% else %}
                             <span class="info">{{unique_leave.employee.vacationlimit.normal_days}} days</span>
                         {% endif %}
@@ -89,7 +89,7 @@
                 <h6 class="main_info">Children days: </h6>
                     <div>
                         {% if not unique_leave.employee.vacationlimit.children_days %}
-                            <span class="info">No data</span>
+                            <span class="info">0 days</span>
                         {% else %}
                             <span class="info">{{unique_leave.employee.vacationlimit.children_days}} days</span>
                         {% endif %}
@@ -99,7 +99,7 @@
                 <h6 class="main_info">Request days: </h6>
                     <div>
                         {% if not unique_leave.employee.vacationlimit.request_days %}
-                            <span class="info">No data</span>
+                            <span class="info">0 days</span>
                         {% else %}
                             <span class="info">{{unique_leave.employee.vacationlimit.request_days}} days</span>
                         {% endif %}
