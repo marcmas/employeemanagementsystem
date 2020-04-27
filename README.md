@@ -38,6 +38,17 @@ Application for management employees write in Django.
 * The sent regulation have to read before accept
 * User have to accept the regulation before he can access the entire system
 
+## Inspiration
+
+This application was created because I wanted to create something that might be useful to someone and not another todolist
+
+## Application development
+
+In the near future I would like add:
+
+* Chat
+* Charts
+
 ## Some screenshots from application
 
 ### Dashboard page  
