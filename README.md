@@ -40,3 +40,10 @@ Application for management employees write in Django.
 
 ## Some screenshots from application
 
+### Dashboard page  
+
+![alt text](https://raw.githubusercontent.com/marcmas/employeemanagementsystem/master/ems_dashboard.png) 
+
+### Add leave page  
+
+![alt text](https://raw.githubusercontent.com/marcmas/employeemanagementsystem/master/ems_add_leave.png)
